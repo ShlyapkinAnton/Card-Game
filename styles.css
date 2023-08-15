@@ -8,13 +8,13 @@ a {
 }
 
 @font-face {
-    font-family: 'StratosSkyeng', sans-serif;
+    font-family: 'StratosSkyeng';
     src: url('/fonts/stratosskyeng-regular.otf') format('truetype');
 }
 
-body {
+/* body {
     font-family: "StratosSkyeng", sans-serif;
-}
+} */
 
 .center {
     padding-left: calc(50% - 512px);
