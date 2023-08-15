@@ -3,18 +3,10 @@
     padding: 0;
 }
 
-a {
-    text-decoration: none;
-}
-
 @font-face {
     font-family: 'StratosSkyeng';
     src: url('/fonts/stratosskyeng-regular.otf') format('truetype');
 }
-
-/* body {
-    font-family: "StratosSkyeng", sans-serif;
-} */
 
 .center {
     padding-left: calc(50% - 512px);
