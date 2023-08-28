@@ -1,6 +1,5 @@
-
 let numLevel = 1;
-console.log("Level :",numLevel);
+console.log("Level :", numLevel);
 
 const levelButtons = document.querySelectorAll(".card");
 levelButtons.forEach((levelButton) => {
@@ -11,16 +10,15 @@ levelButtons.forEach((levelButton) => {
             console.log("Level :", numLevel);
         } else if (numLevel === 2) {
             let numLevel = 2;
-            console.log("Level :",numLevel);
+            console.log("Level :", numLevel);
         } else if (numLevel === 3) {
             let numLevel = 3;
-            console.log("Level :",numLevel);
+            console.log("Level :", numLevel);
         }
-    })
-})
+    });
+});
 
 const startButton = document.querySelector(".button");
-    startButton.addEventListener("click", () => {
-        console.log("Играть на уровне сложности :", numLevel);
-    });
-
+startButton.addEventListener("click", () => {
+    console.log("Играть на уровне сложности :", numLevel);
+});
