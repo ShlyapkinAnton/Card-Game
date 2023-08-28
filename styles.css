@@ -12,6 +12,7 @@
     padding-left: calc(50% - 512px);
     padding-right: calc(50% - 512px);
     background: #004980;
+    height: 100vh;
 }
 
 .top {
@@ -26,12 +27,11 @@
     align-items: center;
     background: #c2f5ff;
     border-radius: 12px;
-    padding-top: 52px;
-    padding-bottom: 48px;
     padding-left: 69px;
     padding-right: 69px;
     margin-top: 158px;
     margin-bottom: 158px;
+    height: 459px;
 }
 
 .header {
@@ -89,21 +89,30 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 35px;
+    padding-top: 52px;
+    padding-bottom: 35px;
 }
 
 .playingFieldCards {
     display: grid;
     grid-template-columns: repeat(9, 95px);
-    row-gap: 15px;
-    column-gap: 15px;
+    grid-gap: 15px 15px;
     border-radius: 4px;
-    margin-left: 13px;
+    justify-content: center;
 }
 .time {
     margin-left: 22px;
 }
 
-.button {
-    margin-right: 23px;
+.cards {
+    display: flex;
+    gap: 24px;
+}
+
+.back {
+    /* background-image: url(/cards/back.jpg); */
+    width: 95px;
+    height: 133px;
+    background: url(/cards/back.jpg) no-repeat;
+    border-radius: 4px;
 }
