@@ -1,3 +1,4 @@
+import "./styles.css";
 const appEl = document.getElementById("app");
 
 let numLevel = 1;
@@ -74,7 +75,7 @@ function renderLevel() {
         });
     });
 
-    // Определение кол-во карт в поле и рандомизация колоды
+    // Определение кол-во карт на поле и рандомизация колоды
     function start(numLevel) {
         let numCards = 6;
         if (numLevel === 1) {
@@ -116,19 +117,20 @@ console.log("Счет :", score);
 function renderGame(isAct) {
     let cardsHtml = arr
         .map((back) => {
-            return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="/cards/back.jpg" alt=""></div>`;
+            //рубаки карт
+            return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="./cards/back.jpg" alt=""></div>`;
         })
         .join("");
     let cardsBackHtml = arr
         .map((back) => {
-            return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="/cards/${back}.jpg" alt=""></div>`;
+            return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="./cards/${back}.jpg" alt=""></div>`;
         })
         .join("");
     const gameHtml = `
     <div class="playingField center">
         <div class="playingFieldHeader">
-            <div class="time">
-                <h1>00.00</h1>
+            <div class="timeBox">
+                <h1 id="timeData" class="time">00.00</h1>
             </div>
             <div>
                 <button class="button returnButton">Начать заново</button>
@@ -139,17 +141,7 @@ function renderGame(isAct) {
         </div>
     </div>`;
     appEl.innerHTML = gameHtml;
-
-    // // Показать и скрытие карточек через 5 сек в начале игры
-    // const int = () => {
-    //     let stop = setTimeout(() => {
-    //         //renderGame(true);
-    //         console.log("set");
-    //     }, 5000);
-    //     //clearTimeout(stop);
-    // };
-    // int();
-
+    //Кнопка повторной игры и сброс значей
     const returnButton = document.querySelector(".returnButton");
     returnButton.addEventListener("click", () => {
         arr = arr = [
@@ -192,12 +184,14 @@ function renderGame(isAct) {
         ];
         numLevel = 1;
         score = 0;
-        renderLevel();
+        renderLevel(false);
         console.log("Играть заново");
     });
 
+    //Поиск пары карт
     const playingFieldCard = document.querySelectorAll(".playingFieldCard");
     playingFieldCard.forEach((playingFieldCard) => {
+        console.log("click");
         playingFieldCard.addEventListener("click", () => {
             //playingFieldCard.classList.add("back");
             //playingFieldCard.style.display = "none";
@@ -224,10 +218,10 @@ function renderGame(isAct) {
     });
 }
 // Показать и скрытие карточек через 5 сек в начале игры
-const int = () => {
+function int() {
     setTimeout(() => {
         renderGame(true);
         console.log("set");
     }, 5000);
-};
-int();
+}
+//document.getElementById("timeData").textContent = "11.11";

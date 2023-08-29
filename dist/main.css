@@ -1,3 +1,6 @@
+/*!**************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./styles.css ***!
+  \**************************************************************/
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +8,7 @@
 
 @font-face {
     font-family: StratosSkyeng;
-    src: url("/fonts/stratosskyeng-regular.otf") format("truetype");
+    src: url(8765b4fa6f0337532589.otf) format("truetype");
 }
 
 .center {
@@ -118,7 +121,7 @@
 .back {
     width: 95px;
     height: 133px;
-    background: url("/cards/back.jpg") no-repeat;
+    background: url(8c27630cd3c577f1634d.jpg) no-repeat;
     border-radius: 4px;
 }
 
@@ -172,3 +175,4 @@
     margin-top: 10px;
     margin-bottom: 40px;
 }
+
