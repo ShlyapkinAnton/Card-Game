@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 // const isProduction = process.env.NODE_ENV === "production";
 module.exports = {
     entry: "./index.js",
@@ -33,9 +34,9 @@ module.exports = {
         clean: true,
     },
     plugins: [
-        // new CopyPlugin({
-        //     patterns: [{ from: "static", to: "static" }],
-        // }),
+        new CopyPlugin({
+            patterns: [{ from: "cards", to: "cards" }],
+        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: "./index.html",
