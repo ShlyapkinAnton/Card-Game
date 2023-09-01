@@ -84,6 +84,10 @@
     color: #7ac100;
 }
 
+.playingField {
+    position: absolute;
+}
+
 .playingFieldHeader {
     display: flex;
     justify-content: space-between;
@@ -123,6 +127,7 @@
 }
 
 .winLose {
+    position: relative;
     width: 480px;
     border-radius: 12px;
     background: #c2f5ff;
@@ -134,14 +139,13 @@
 }
 
 .imgHeader {
-    width: 96px;
-    height: 96px;
+    /* width: 96px;
+    height: 96px; */
     margin-top: 26px;
     margin-bottom: 9px;
 }
 
 .headerLow {
-    width: 256px;
     color: #004980;
     font-family: StratosSkyeng, sans-serif;
     font-size: 40px;
