@@ -85,7 +85,7 @@
 }
 
 .playingField {
-    position: absolute;
+    position: relative;
 }
 
 .playingFieldHeader {
@@ -127,7 +127,7 @@
 }
 
 .winLose {
-    position: relative;
+    position: absolute;
     width: 480px;
     border-radius: 12px;
     background: #c2f5ff;

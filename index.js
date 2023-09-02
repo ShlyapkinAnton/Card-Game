@@ -1,5 +1,5 @@
 import "./styles.css";
-import { watch } from "./watch.js";
+//import { watch } from "./watch.js";
 const appEl = document.getElementById("app");
 
 let numLevel = 1;
@@ -46,6 +46,29 @@ let arr = [
     "7Clubs",
     "6Clubs",
 ];
+
+const timerRef = document.querySelectorAll(".timerDisplay");
+function displayTimer() {
+    let [milliseconds, seconds, minutes] = [0, 0, 0];
+    milliseconds += 10;
+    if (milliseconds === 1000) {
+        milliseconds = 0;
+        seconds++;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes === 60) {
+                minutes = 0;
+            }
+        }
+    }
+
+    let m = minutes < 10 ? "0" + minutes : minutes;
+    let s = seconds < 10 ? "0" + seconds : seconds;
+
+    timerRef.innerHTML = ` ${m}:${s} `;
+}
+// let int = null;
 
 // Рендер уровня сложности + выбор уровня сложности и запуск игры
 function renderLevel() {
@@ -119,7 +142,6 @@ renderLevel();
 //
 //Рендер игрового поля и повторный запуск игры
 function renderGame(isAct, isWin) {
-    //let timerRef = document.querySelector(".timerDisplay");
     let cardsHtml = arr
         .map((back) => {
             //рубаки карт
@@ -144,16 +166,18 @@ function renderGame(isAct, isWin) {
         <div class="playingFieldCards">
             ${isAct ? cardsHtml : cardsBackHtml}
         </div>
-    </div>
-    <div class="winLose">
-        <img class="imgHeader" src="./cards/${
-            isWin ? "win.png" : "lose.png"
-        }" alt="winORlose">
-        <h1 class="headerLow">${isWin ? "Вы выиграли!" : "Вы проиграли!"}</h1>
-        <h3 class="heading">Затраченное время:</h3>
-        <p class="timeHeader timerDisplay">00.00</p>
-        <button style="margin-bottom: 48px" class="button returnButton">Играть снова</button>
-    </div>
+        </div>
+        <div class="winLose">
+            <img class="imgHeader" src="./cards/${
+                isWin ? "win.png" : "lose.png"
+            }" alt="winORlose">
+            <h1 class="headerLow">${
+                isWin ? "Вы выиграли!" : "Вы проиграли!"
+            }</h1>
+            <h3 class="heading">Затраченное время:</h3>
+            <p class="timeHeader timerDisplay">00.00</p>
+            <button style="margin-bottom: 48px" class="button returnButton">Играть снова</button>
+        </div>
     </div>`;
     appEl.innerHTML = gameHtml;
     document.querySelector(".winLose").style.display = "flex";
@@ -238,6 +262,59 @@ function renderGame(isAct, isWin) {
     //     returnGame();
     // }
 
+    // секурдомер
+    // function watch(int) {
+    //     let [milliseconds, seconds, minutes] = [0, 0, 0];
+    //     const timerRefs = document.querySelectorAll(".timerDisplay");
+    //     timerRefs.forEach((timerRef) => {
+    //         //let int = null;
+
+    //         if (int === true) {
+    //             int = setInterval(displayTimer, 10);
+    //         } else {
+    //             int = clearInterval(int);
+    //         }
+
+    //         // document.getElementById("startTimer").addEventListener("click", () => {
+    //         //     if (int !== null) {
+    //         //         clearInterval(int);
+    //         //     }
+    //         //int = setInterval(displayTimer, 10);
+    //         // });
+
+    //         // document.getElementById("pauseTimer").addEventListener("click", () => {
+    //         //     clearInterval(int);
+    //         // });
+
+    //         // document.getElementById("resetTimer").addEventListener("click", () => {
+    //         //     clearInterval(int);
+    //         //     [seconds, minutes] = [0, 0];
+    //         //     timerRef.innerHTML = " 00 : 00 ";
+    //         // });
+
+    //         function displayTimer() {
+    //             milliseconds += 10;
+    //             if (milliseconds === 1000) {
+    //                 milliseconds = 0;
+    //                 seconds++;
+    //                 if (seconds === 60) {
+    //                     seconds = 0;
+    //                     minutes++;
+    //                     if (minutes === 60) {
+    //                         minutes = 0;
+    //                     }
+    //                 }
+    //             }
+
+    //             let m = minutes < 10 ? "0" + minutes : minutes;
+    //             let s = seconds < 10 ? "0" + seconds : seconds;
+
+    //             timerRef.innerHTML = ` ${m}:${s} `;
+    //         }
+    //         displayTimer();
+    //     });
+    // }
+
     //Поиск пары карт
     const playingFieldCards = document.querySelectorAll(".playingFieldCard");
     let compareNameId = [];
@@ -277,19 +354,22 @@ function renderGame(isAct, isWin) {
                     compareNameId.shift();
                     compareId.shift();
                 }
+
                 // Окно результата
                 console.log("Счет :", score, "Ход :", step);
                 if (numLevel === 1) {
                     if (step === 5 || score === 3) {
+                        document.querySelector(".winLose").style.display =
+                            "flex";
                         if (score === 3) {
+                            //console.log(int);
                             //clearInterval(int);
-                            document.querySelector(".winLose").style.display =
-                                "flex";
+                            //watch(true);
                             alert("Вы победили!");
-                        } else {
+                        } else if (score <= 3) {
+                            clearInterval(displayTimer);
+                            //console.log(int);
                             //clearInterval(int);
-                            document.querySelector(".winLose").style.display =
-                                "flex";
                             alert("Вы проиграли!");
                         }
                     }
@@ -322,7 +402,8 @@ function renderGame(isAct, isWin) {
 function ints() {
     setTimeout(() => {
         renderGame(true);
-        watch();
+        setInterval(displayTimer, 10);
+        //watch(true);
         console.log("Старт");
-    }, 5000);
+    }, 3000);
 }
