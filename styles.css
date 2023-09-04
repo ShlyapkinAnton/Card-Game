@@ -86,6 +86,7 @@
 
 .playingField {
     position: relative;
+    z-index: 1;
 }
 
 .playingFieldHeader {
@@ -126,9 +127,26 @@
     border-radius: 4px;
 }
 
+.imgBg {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+
+.img {
+    position: absolute;
+    z-index: 2;
+    background-image: url("./cards/BG.png");
+    width: 100vw;
+    height: 100vh;
+}
+
 .winLose {
     position: absolute;
+    z-index: 4;
+    top: 158px;
     width: 480px;
+    height: auto;
     border-radius: 12px;
     background: #c2f5ff;
     display: flex;
@@ -139,8 +157,6 @@
 }
 
 .imgHeader {
-    /* width: 96px;
-    height: 96px; */
     margin-top: 26px;
     margin-bottom: 9px;
 }
