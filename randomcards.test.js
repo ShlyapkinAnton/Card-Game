@@ -1,6 +1,6 @@
 /* eslint-disable */
 const { it } = require("@jest/globals");
-const { start } = require("./radmomcards");
+const { start } = require("./randomcards");
 
 const numLevel = [1, 2, 3];
 const arr = [

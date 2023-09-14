@@ -87,28 +87,6 @@ function renderLevel() {
         });
     });
 
-    // Определение кол-во карт на поле и рандомизация колоды
-    // function start(numLevel: number) {
-    //     let numCards = 6;
-    //     if (numLevel === 1) {
-    //         numCards = 3;
-    //     } else if (numLevel === 2) {
-    //         numCards = 6;
-    //     } else if (numLevel === 3) {
-    //         numCards = 9;
-    //     }
-    //     console.log("Кол-во карт :", numCards);
-
-    //     arr.sort(() => Math.random() - 0.5);
-    //     arr = arr.slice(0, numCards); // урезать массив в 2 раза
-    //     arr.forEach((el) => arr.push(el));
-    //     arr.sort(() => Math.random() - 0.5); // массив рандом кард 6 12 18
-    //     arr2 = arr.map((element, index) => {
-    //         return [index, element];
-    //     });
-    //     console.log("массив пар", arr2); //[["id","name"],["id","name"]]
-    // }
-
     const startButton = document.querySelector(".button") as HTMLElement;
     startButton.addEventListener("click", () => {
         arr2 = [];
@@ -288,6 +266,7 @@ function renderGame(isAct: boolean) {
                         compareId.shift();
                     }
                 }
+                // Подсчет результатов
                 console.log("Счет :", score, "Ход :", step);
                 if (numLevel === 1) {
                     if (step === 5 || score === 3) {
@@ -317,11 +296,9 @@ function renderGame(isAct: boolean) {
             }
         });
     });
-    // Окно результата
-    // записывать все пары сравнивыемых карт в общий масив, при достижение нужной длинны массива сравнить с уровнем игры и выдать результат, если при сравнение первой пары не было допусщина ошибка
 }
 
-// Показать и скрытие карточек через 5 сек в начале игры
+// Показать/скрыть карточки через 5 сек в начале игры
 function ints() {
     setTimeout(() => {
         renderGame(true);
