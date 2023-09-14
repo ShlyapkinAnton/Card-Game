@@ -1,10 +1,11 @@
 import "./styles.css";
 import { startTimer, stopTimer } from "./watch";
+import { start } from "./randomcards";
 
 const appEl = document.getElementById("app") as HTMLElement;
-let numLevel = 1;
-let score = 0;
-let step = 0;
+let numLevel: number = 1;
+let score: number = 0;
+let step: number = 0;
 
 console.log("Level :", numLevel, ";", "Счет :", score, ";", "Ход :", step);
 
@@ -60,9 +61,10 @@ function renderLevel() {
         </div>
         <button class="button">Старт</button>
     </div>
-</div>`;
+    </div>`;
     appEl.innerHTML = levelHtml;
 
+    // при нажаите вызвать функцию с выбором сложности игры
     const levelButtons = document.querySelectorAll(
         ".card",
     ) as NodeListOf<Element>;
@@ -86,30 +88,31 @@ function renderLevel() {
     });
 
     // Определение кол-во карт на поле и рандомизация колоды
-    function start(numLevel: number) {
-        let numCards = 6;
-        if (numLevel === 1) {
-            numCards = 3;
-        } else if (numLevel === 2) {
-            numCards = 6;
-        } else if (numLevel === 3) {
-            numCards = 9;
-        }
-        console.log("Кол-во карт :", numCards);
+    // function start(numLevel: number) {
+    //     let numCards = 6;
+    //     if (numLevel === 1) {
+    //         numCards = 3;
+    //     } else if (numLevel === 2) {
+    //         numCards = 6;
+    //     } else if (numLevel === 3) {
+    //         numCards = 9;
+    //     }
+    //     console.log("Кол-во карт :", numCards);
 
-        arr.sort(() => Math.random() - 0.5);
-        arr = arr.slice(0, numCards); // урезать массив в 2 раза
-        arr.forEach((el) => arr.push(el));
-        arr.sort(() => Math.random() - 0.5); // массив рандом кард 6 12 18
-        arr2 = arr.map((element, index) => {
-            return [index, element];
-        });
-        console.log("массив пар", arr2); //[["id","name"],["id","name"]]
-    }
+    //     arr.sort(() => Math.random() - 0.5);
+    //     arr = arr.slice(0, numCards); // урезать массив в 2 раза
+    //     arr.forEach((el) => arr.push(el));
+    //     arr.sort(() => Math.random() - 0.5); // массив рандом кард 6 12 18
+    //     arr2 = arr.map((element, index) => {
+    //         return [index, element];
+    //     });
+    //     console.log("массив пар", arr2); //[["id","name"],["id","name"]]
+    // }
 
     const startButton = document.querySelector(".button") as HTMLElement;
     startButton.addEventListener("click", () => {
-        start(numLevel);
+        arr2 = [];
+        start(numLevel, arr, arr2);
         stopTimer();
         renderGame(false);
         ints();
@@ -118,24 +121,92 @@ function renderLevel() {
 }
 renderLevel();
 
+//Кнопка повторной игры и сброс значей
+const returnGame = () => {
+    const returnButtons = document.querySelectorAll(".returnButton");
+    returnButtons.forEach((returnButton) => {
+        returnButton.addEventListener("click", () => {
+            arr = [
+                "AceSpades",
+                "KingSpades",
+                "QueenSpades",
+                "JackSpades",
+                "10Spades",
+                "9Spades",
+                "8Spades",
+                "7Spades",
+                "6Spades",
+                "AceHearts",
+                "KingHearts",
+                "QueenHearts",
+                "JackHearts",
+                "10Hearts",
+                "9Hearts",
+                "8Hearts",
+                "7Hearts",
+                "6Hearts",
+                "AceDiamonds",
+                "KingDiamonds",
+                "QueenDiamonds",
+                "JackDiamonds",
+                "10Diamonds",
+                "9Diamonds",
+                "8Diamonds",
+                "7Diamonds",
+                "6Diamonds",
+                "AceClubs",
+                "KingClubs",
+                "QueenClubs",
+                "JackClubs",
+                "10Clubs",
+                "9Clubs",
+                "8Clubs",
+                "7Clubs",
+                "6Clubs",
+            ];
+            stopTimer();
+            numLevel = 1;
+            step = 0;
+            score = 0;
+            renderLevel();
+            console.log(
+                "Играть заново. Level :",
+                numLevel,
+                ";",
+                "Счет :",
+                score,
+                ";",
+                "Ход :",
+                step,
+            );
+        });
+    });
+};
+
 //Рендер игрового поля и повторный запуск игры
 function renderGame(isAct: boolean) {
     const cardsHtml = arr2
         .map((back) => {
             //рубашки карт
-            return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/back.jpg" alt=""></div>`;
+            return `<div id="${back[0]}"><img class="playingFieldCard back" id="${back[0]}" data-name="${back[1]}" src="./cards/back.jpg" alt=""></div>`;
         })
         .join("");
     const cardsBackHtml = arr2
         .map((back) => {
-            return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/${back[1]}.jpg" alt=""></div>`;
+            return `<div id="${back[0]}"><img class="playingFieldCard back" id="${back[0]}" data-name="${back[1]}" src="./cards/${back[1]}.jpg" alt=""></div>`;
         })
         .join("");
     const gameHtml = `
     <div class="playingField center">
         <div class="playingFieldHeader">
             <div class="timeBox">
-                <h1 class="time timerDisplay">00.00</h1>
+                <div class="timeBoxHeader">
+                    <p class="timeBoxHeader">min</p>
+                    <p class="timeBoxHeader">sec</p>
+                </div>
+                <div>
+                    <h1 class="time timerDisplay">00.00</h1>
+                </div>
             </div>
             <div>
                 <button class="button returnButton">Начать заново</button>
@@ -172,67 +243,6 @@ function renderGame(isAct: boolean) {
         stopTimer();
     }
 
-    //Кнопка повторной игры и сброс значей
-    const returnGame = () => {
-        const returnButtons = document.querySelectorAll(".returnButton");
-        returnButtons.forEach((returnButton) => {
-            returnButton.addEventListener("click", () => {
-                arr = [
-                    "AceSpades",
-                    "KingSpades",
-                    "QueenSpades",
-                    "JackSpades",
-                    "10Spades",
-                    "9Spades",
-                    "8Spades",
-                    "7Spades",
-                    "6Spades",
-                    "AceHearts",
-                    "KingHearts",
-                    "QueenHearts",
-                    "JackHearts",
-                    "10Hearts",
-                    "9Hearts",
-                    "8Hearts",
-                    "7Hearts",
-                    "6Hearts",
-                    "AceDiamonds",
-                    "KingDiamonds",
-                    "QueenDiamonds",
-                    "JackDiamonds",
-                    "10Diamonds",
-                    "9Diamonds",
-                    "8Diamonds",
-                    "7Diamonds",
-                    "6Diamonds",
-                    "AceClubs",
-                    "KingClubs",
-                    "QueenClubs",
-                    "JackClubs",
-                    "10Clubs",
-                    "9Clubs",
-                    "8Clubs",
-                    "7Clubs",
-                    "6Clubs",
-                ];
-                stopTimer();
-                numLevel = 1;
-                step = 0;
-                score = 0;
-                renderLevel();
-                console.log(
-                    "Играть заново. Level :",
-                    numLevel,
-                    ";",
-                    "Счет :",
-                    score,
-                    ";",
-                    "Ход :",
-                    step,
-                );
-            });
-        });
-    };
     returnGame();
 
     //Поиск пары карт
@@ -277,40 +287,40 @@ function renderGame(isAct: boolean) {
                         compareNameId.shift();
                         compareId.shift();
                     }
-
-                    // Окно результата
-                    // записывать все пары сравнивыемых карт в общий масив, при достижение нужной длинны массива сравнить с уровнем игры и выдать результат, если при сравнение первой пары не было допусщина ошибка
-                    console.log("Счет :", score, "Ход :", step);
-                    if (numLevel === 1) {
-                        if (step === 5 || score === 3) {
-                            if (score === 3) {
-                                renderWin(true);
-                            } else if (score <= 3) {
-                                renderWin(false);
-                            }
+                }
+                console.log("Счет :", score, "Ход :", step);
+                if (numLevel === 1) {
+                    if (step === 5 || score === 3) {
+                        if (score === 3) {
+                            renderWin(true);
+                        } else if (score <= 3) {
+                            renderWin(false);
                         }
-                    } else if (numLevel === 2) {
-                        if (step === 8 || score === 6) {
-                            if (score === 6) {
-                                renderWin(true);
-                            } else {
-                                renderWin(false);
-                            }
+                    }
+                } else if (numLevel === 2) {
+                    if (step === 8 || score === 6) {
+                        if (score === 6) {
+                            renderWin(true);
+                        } else {
+                            renderWin(false);
                         }
-                    } else if (numLevel === 3) {
-                        if (step === 9 || score === 9) {
-                            if (score === 9) {
-                                renderWin(true);
-                            } else {
-                                renderWin(false);
-                            }
+                    }
+                } else if (numLevel === 3) {
+                    if (step === 9 || score === 9) {
+                        if (score === 9) {
+                            renderWin(true);
+                        } else {
+                            renderWin(false);
                         }
                     }
                 }
             }
         });
     });
+    // Окно результата
+    // записывать все пары сравнивыемых карт в общий масив, при достижение нужной длинны массива сравнить с уровнем игры и выдать результат, если при сравнение первой пары не было допусщина ошибка
 }
+
 // Показать и скрытие карточек через 5 сек в начале игры
 function ints() {
     setTimeout(() => {

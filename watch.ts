@@ -1,9 +1,9 @@
 let milliseconds = 0;
 let seconds = 0;
 let minutes = 0;
-let interval: any = 0
+let interval: undefined | ReturnType<typeof setInterval> = undefined;
 export function startTimer(html: HTMLElement) {
-    interval= setInterval(() => {
+    interval = setInterval(() => {
         milliseconds += 10;
         if (milliseconds === 1000) {
             milliseconds = 0;
@@ -16,7 +16,11 @@ export function startTimer(html: HTMLElement) {
                 }
             }
         }
-        html.innerHTML = `${(minutes < 10 ? "0" + minutes : minutes) + "." + (seconds < 10 ? "0" + seconds : seconds)}`;
+        html.innerHTML = `${
+            (minutes < 10 ? "0" + minutes : minutes) +
+            "." +
+            (seconds < 10 ? "0" + seconds : seconds)
+        }`;
     }, 10);
 }
 
